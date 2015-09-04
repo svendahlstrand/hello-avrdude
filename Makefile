@@ -16,11 +16,8 @@ default: program
 $(TARGET).elf: $(TARGET).c
 	$(CC) $(CFLAGS) -o $@ $<
 
-$(TARGET).hex: $(TARGET).elf
-	$(OBJCOPY) -j .text -j .data -O ihex $< $@
-
-program: $(TARGET).hex
+program: $(TARGET).elf
 	avrdude -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE) -U flash:w:$<
 
 clean:
-	rm -f $(TARGET).elf $(TARGET).hex
+	rm -f $(TARGET).elf
