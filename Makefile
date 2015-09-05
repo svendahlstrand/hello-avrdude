@@ -15,13 +15,13 @@ BUILD_DIR=build
 TARGET=hello
 BUILD_TARGET=$(BUILD_DIR)/$(TARGET)
 
-default: program
+default: flash
 
 $(BUILD_TARGET).elf: $(TARGET).c
 	mkdir $(BUILD_DIR)
 	$(GCC) $(ALL_CFLAGS) -o $@ $<
 
-program: $(BUILD_TARGET).elf
+flash: $(BUILD_TARGET).elf
 	$(AVRDUDE) -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE) -U flash:w:$<
 
 clean:
