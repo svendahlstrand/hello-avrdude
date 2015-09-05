@@ -4,7 +4,7 @@ So, we're going to make a LED blink by using and AVR microcontroller. How hard c
 
 * buy an AVR programmer (or make your own with an Arduino UNO)
 * make sure you have all parts needed
-* build the curcuit
+* [build the curcuit](build.md)
 * install AVR toolset and AVRDUDE on OS X
 * compile the blinking LED program
 * flash the microship
