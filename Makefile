@@ -14,13 +14,14 @@ OBJCOPY=avr-objcopy
 CFLAGS=-Wall -Os
 ALL_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(CLOCK_SPEED) $(CFLAGS)
 
+SRC_DIR=src
 BUILD_DIR=build
 TARGET=blinking-led
 BUILD_TARGET=$(BUILD_DIR)/$(TARGET)
 
 default: flash
 
-$(BUILD_TARGET).elf: $(TARGET).c
+$(BUILD_TARGET).elf: $(SRC_DIR)/$(TARGET).c
 	mkdir -p $(BUILD_DIR)
 	$(GCC) $(ALL_CFLAGS) -o $@ $<
 
