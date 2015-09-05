@@ -9,23 +9,27 @@ PORT=/dev/cu.usbmodem1411
 BAUD_RATE=19200
 
 AVRDUDE=avrdude
-GCC=avr-gcc
+CC=avr-gcc
 OBJCOPY=avr-objcopy
 CFLAGS=-Wall -Os
 ALL_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(CLOCK_SPEED) $(CFLAGS)
 
-SRC_DIR=src
+VPATH=src
 BUILD_DIR=build
 TARGET=blinking-led
-BUILD_TARGET=$(BUILD_DIR)/$(TARGET)
+BUILD_TARGET=$(BUILD_DIR)/$(TARGET).elf
 
-all: $(BUILD_TARGET).elf
+all: $(BUILD_TARGET)
 
-$(BUILD_TARGET).elf: $(SRC_DIR)/$(TARGET).c
+$(BUILD_TARGET): $(TARGET).c | $(BUILD_DIR)
+	$(CC) $(ALL_CFLAGS) -o $@ $<
+
+$(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
-	$(GCC) $(ALL_CFLAGS) -o $@ $<
 
-flash: $(BUILD_TARGET).elf
+.PHONY: flash fuse clean
+
+flash: $(BUILD_TARGET)
 	$(AVRDUDE) -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE) -U flash:w:$<
 
 fuse:
