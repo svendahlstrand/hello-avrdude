@@ -18,7 +18,7 @@ BUILD_TARGET=$(BUILD_DIR)/$(TARGET)
 default: flash
 
 $(BUILD_TARGET).elf: $(TARGET).c
-	mkdir $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)
 	$(GCC) $(ALL_CFLAGS) -o $@ $<
 
 flash: $(BUILD_TARGET).elf
