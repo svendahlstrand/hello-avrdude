@@ -2,11 +2,11 @@
 #include <util/delay.h>
 
 int main (void) {
-  DDRB |= _BV(DDB0);
+  DDRC |= _BV(DDC5);
 
   for(;;)
   {
-    PORTB ^= _BV(PB0);
+    PORTC ^= _BV(PC5);
     _delay_ms(1000);
   }
 }
