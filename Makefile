@@ -19,7 +19,7 @@ BUILD_DIR=build
 TARGET=blinking-led
 BUILD_TARGET=$(BUILD_DIR)/$(TARGET)
 
-default: flash
+all: $(BUILD_TARGET).elf
 
 $(BUILD_TARGET).elf: $(SRC_DIR)/$(TARGET).c
 	mkdir -p $(BUILD_DIR)
