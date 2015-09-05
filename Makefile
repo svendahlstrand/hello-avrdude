@@ -25,7 +25,10 @@ fuse:
 ifeq ($(and $(strip $(LFUSE)), $(strip $(HFUSE)), $(strip $(EFUSE))),)
 	$(error You have to provide LFUSE, HFUSE and EFUSE)
 else
-	$(AVRDUDE) $(AVRFLAGS) -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
+	$(AVRDUDE) $(AVRFLAGS) \
+	-U lfuse:w:$(LFUSE):m \
+	-U hfuse:w:$(HFUSE):m \
+	-U efuse:w:$(EFUSE):m
 endif
 
 clean:
