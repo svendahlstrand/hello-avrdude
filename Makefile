@@ -8,32 +8,24 @@ PROGRAMMER=stk500v1
 PORT=/dev/cu.usbmodem1411
 BAUD_RATE=19200
 
-AVRDUDE=avrdude
+VPATH=src
 CC=avr-gcc
-OBJCOPY=avr-objcopy
 CFLAGS=-Wall -Os
 ALL_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(CLOCK_SPEED) $(CFLAGS)
+OBJCOPY=avr-objcopy
+AVRDUDE=avrdude
+AVRFLAGS=-c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE)
 
-VPATH=src
-BUILD_DIR=build
-TARGET=blinking-led
-BUILD_TARGET=$(BUILD_DIR)/$(TARGET).elf
-
-all: $(BUILD_TARGET)
-
-$(BUILD_TARGET): $(TARGET).c | $(BUILD_DIR)
+blinking-led.elf: blinking-led.c
 	$(CC) $(ALL_CFLAGS) -o $@ $<
-
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
 
 .PHONY: flash fuse clean
 
-flash: $(BUILD_TARGET)
-	$(AVRDUDE) -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE) -U flash:w:$<
+flash: blinking-led.elf
+	$(AVRDUDE) $(AVRFLAGS) -U flash:w:$<
 
 fuse:
-	$(AVRDUDE) -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE) -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
+	$(AVRDUDE) $(AVRFLAGS) -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
 
 clean:
-	rm -rf $(BUILD_DIR)
+	rm -f blinking-led.elf
