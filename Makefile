@@ -5,7 +5,6 @@ PROGRAMMER=stk500v1
 PORT=/dev/cu.usbmodem1411
 BAUD_RATE=19200
 
-VPATH=src
 CC=avr-gcc
 CFLAGS=-Wall -Os
 ALL_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(F_CPU) $(CFLAGS)
@@ -13,7 +12,9 @@ OBJCOPY=avr-objcopy
 AVRDUDE=avrdude
 AVRFLAGS=-c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE)
 
-blinking-led.elf: blinking-led.c
+all: blinking-led.elf
+
+blinking-led.elf: src/blinking-led.c
 	$(CC) $(ALL_CFLAGS) -o $@ $<
 
 .PHONY: flash fuse clean
