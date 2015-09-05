@@ -15,7 +15,7 @@ CFLAGS=-Wall -Os
 ALL_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(CLOCK_SPEED) $(CFLAGS)
 
 BUILD_DIR=build
-TARGET=hello
+TARGET=blinking-led
 BUILD_TARGET=$(BUILD_DIR)/$(TARGET)
 
 default: flash
