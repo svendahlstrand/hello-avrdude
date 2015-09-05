@@ -18,12 +18,6 @@ So, we're going to make a LED blink by using and AVR microcontroller. How hard c
 * install AVR toolset and AVRDUDE on OS X
 * compile the blinking LED program
 * flash the microship
-* optionally: set the microship fuse bits
+* optionally: [set the microship fuse bits](/docs/fuses.md)
 
 After the above steps you may high five yourself to celebrate.
-
-## Set fuses
-
-    avrdude -c stk500v1 -p atmega328 -P /dev/cu.usbmodem1411 -b 19200 -U lfuse:w:0xe2:m -U hfuse:w:0xd6:m -U efuse:w:0x05:m
-
-Use http://www.engbedded.com/fusecalc
