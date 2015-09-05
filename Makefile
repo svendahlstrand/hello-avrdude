@@ -11,15 +11,18 @@ OBJCOPY=avr-objcopy
 CFLAGS=-Wall -Os
 ALL_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(CLOCK_SPEED) $(CFLAGS)
 
+BUILD_DIR=build
 TARGET=hello
+BUILD_TARGET=$(BUILD_DIR)/$(TARGET)
 
 default: program
 
-$(TARGET).elf: $(TARGET).c
+$(BUILD_TARGET).elf: $(TARGET).c
+	mkdir $(BUILD_DIR)
 	$(GCC) $(ALL_CFLAGS) -o $@ $<
 
-program: $(TARGET).elf
+program: $(BUILD_TARGET).elf
 	$(AVRDUDE) -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE) -U flash:w:$<
 
 clean:
-	rm -f $(TARGET).elf
+	rm -rf $(BUILD_DIR)
