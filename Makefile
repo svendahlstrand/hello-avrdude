@@ -7,14 +7,15 @@ BAUD_RATE=19200
 
 CC=avr-g++
 OBJCOPY=avr-objcopy
-CFLAGS=-mmcu=$(MCU) -Wall -Os -DF_CPU=$(CLOCK_SPEED)
+CFLAGS=-Wall -Os
+ALL_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(CLOCK_SPEED) $(CFLAGS)
 
 TARGET=hello
 
 default: program
 
 $(TARGET).elf: $(TARGET).c
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $(ALL_CFLAGS) -o $@ $<
 
 program: $(TARGET).elf
 	avrdude -c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE) -U flash:w:$<
