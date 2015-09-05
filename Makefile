@@ -1,8 +1,5 @@
 MCU=atmega328
 CLOCK_SPEED=8000000UL
-LFUSE=0xe2
-HFUSE=0xd6
-EFUSE=0x05
 
 PROGRAMMER=stk500v1
 PORT=/dev/cu.usbmodem1411
@@ -25,7 +22,11 @@ flash: blinking-led.elf
 	$(AVRDUDE) $(AVRFLAGS) -U flash:w:$<
 
 fuse:
+ifeq ($(and $(strip $(LFUSE)), $(strip $(HFUSE)), $(strip $(EFUSE))),)
+	$(error You have to provide LFUSE, HFUSE and EFUSE)
+else
 	$(AVRDUDE) $(AVRFLAGS) -U lfuse:w:$(LFUSE):m -U hfuse:w:$(HFUSE):m -U efuse:w:$(EFUSE):m
+endif
 
 clean:
 	rm -f blinking-led.elf
