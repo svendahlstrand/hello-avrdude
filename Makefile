@@ -8,7 +8,6 @@ BAUD_RATE=19200
 CC=avr-gcc
 CFLAGS=-Wall -Os
 ALL_CFLAGS=-mmcu=$(MCU) -DF_CPU=$(F_CPU) $(CFLAGS)
-OBJCOPY=avr-objcopy
 AVRDUDE=avrdude
 AVRFLAGS=-c $(PROGRAMMER) -p $(MCU) -P $(PORT) -b $(BAUD_RATE)
 
