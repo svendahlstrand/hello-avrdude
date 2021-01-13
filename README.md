@@ -4,7 +4,7 @@ Do you want to get up and running with AVR development on macOS? Maybe you're li
 
 Anyway, this repository contains everything you need to get a blinking LED program (the Hello World of microcontrollers) running on an AVR chip (like the ATmega328p):
 
-* Source code for a blinking LED program (`hello.c`).
+* Source code for a blinking LED program (`src/blinking-led.c`).
 * A simple `Makefile` for compiling the project and flash your AVR microcontroller.
 * Easy to follow instructions for getting everything setup in macOS and using a programmer to flash your microcontroller.
 
